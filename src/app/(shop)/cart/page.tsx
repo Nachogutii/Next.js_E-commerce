@@ -61,7 +61,7 @@ export default function () {
                     </div>
 
                     {/*Checkout*/}
-                    <div className="bg-white rounded-xl shadow-xl p-7">
+                    <div className="bg-white rounded-xl shadow-xl p-7 h-[300px] mt-6">
                         <h2 className="text-2xl mb-2 font-medium">
                             Resumen de la compra
                         </h2>
