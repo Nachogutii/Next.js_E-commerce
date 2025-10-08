@@ -23,6 +23,13 @@ export default function ({ params }: Props) {
         unisex: 'Unisex'
     }
 
+    const labelsSubtitles: Record<Category, string> = {
+        men: 'Él',
+        women: 'Ella',
+        kid: 'Ellos',
+        unisex: 'Todos'
+    }
+
     //    if (id === 'kids') {
     //        notFound()
     //    }
@@ -31,7 +38,7 @@ export default function ({ params }: Props) {
         <>
             <Title
                 title={`Artículos de ${labels[id]}`}
-                subtitle="Todos los productos"
+                subtitle={`Todos los productos para ${labelsSubtitles[id]}`}
                 className="mb-2"
             />
 
@@ -39,3 +46,4 @@ export default function ({ params }: Props) {
         </>
     )
 }
+
