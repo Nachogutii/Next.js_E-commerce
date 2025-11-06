@@ -1,12 +1,15 @@
 'use client';
 
 import { authenticate } from "@/actions";
+import clsx from "clsx";
 import Link from "next/link";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
 
-    const [state, dispatch] = useFormState(authenticate, undefined)
+    const [state, dispatch] = useActionState(authenticate, undefined)
 
 
     return (
@@ -15,25 +18,37 @@ export const LoginForm = () => {
             <label htmlFor="email">Correo electrónico</label>
             <input
                 className="px-5 py-2 bg-gray-200 rounded mb-5"
-                type="email" 
+                type="email"
                 name="email"
-                />
-                
+            />
+
 
 
             <label htmlFor="password">Contraseña</label>
             <input
                 className="px-5 py-2 bg-gray-200 rounded mb-5"
-                type="password" 
+                type="password"
                 name="password"
-                />
-                
+            />
 
-            <button
-                type="submit"
-                className="btn-primary cursor-pointer">
-                Ingresar
-            </button>
+            <div
+                className="flex h-8 items-end space-x-1"
+                aria-live="polite"
+                aria-atomic="true"
+            >
+                {state === "CredentialsSignin" && (
+                    <div className="flex flex-row mb-2">
+
+                        <IoInformationOutline className="h-5 w-5 text-red-500" />
+                        <p className="text-sm text-red-500">Invalid credentials</p>
+
+                    </div>
+                )}
+
+            </div>
+
+
+            <LoginButton />
 
 
             {/* divisor l ine */}
@@ -50,5 +65,24 @@ export const LoginForm = () => {
             </Link>
 
         </form>
+    )
+}
+
+
+function LoginButton() {
+    const { pending } = useFormStatus()
+
+    return (
+        <button
+            type="submit"
+            className={clsx({
+                "btn-primary cursor-pointer": !pending,
+                "btn-disabled": pending,
+            })}
+            disabled={pending}
+            >
+            
+            Ingresar
+        </button>
     )
 }
